@@ -1,3 +1,4 @@
 *.txt
 *.npz
 *.ipynb
+__pycache__/
