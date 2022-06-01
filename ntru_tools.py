@@ -1,7 +1,7 @@
 from subprocess import Popen, PIPE
-def genetate_key(N, p, q, file_sk, file_vk):
+def genetate_key(N, p, q, file_sk, file_pk):
     print(N, p, q)
-    p = Popen(f"python ntru/ntru.py -v gen {N} {p} {q} {file_sk} {file_vk}".split(" "))
+    p = Popen(f"python ntru/ntru.py -v gen {N} {p} {q} {file_sk} {file_pk}".split(" "))
     p.communicate()
     p.wait()
 def encrypt(file_pk, msg, save_file=None):
