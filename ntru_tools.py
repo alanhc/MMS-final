@@ -17,14 +17,20 @@ def encrypt(file_pk, msg, save_file=None):
         with open(save_file, "wb") as f:
             f.write(stdout)
     return stdout
-def decrypt(file_sk, secret_file=None):
+def decrypt(file_sk, secret_file=None, secret=None):
     if (secret_file):
         cmd2 = f"cat {secret_file} | python ntru/ntru.py dec {file_sk}"
         p = Popen(cmd2, shell=True, stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
+    else:
+        cmd2 = f"python ntru/ntru.py dec {file_sk}"
+        p = Popen(cmd2, shell=True, stdin=PIPE,stdout=PIPE, stderr=PIPE)
+        stdout, stderr = p.communicate(input=secret)
     return stdout
+
 ##genetate_key(167, 3, 128, "sk", "pk") # N=167質數, p=3, q=128
 #N = number.getPrime(10)
 #genetate_key(N, 3, 128, "sk", "pk")
-#encrypt("pk.npz", "abc")
-#print( decrypt("sk.npz", "ntru/test.txt") )
+#_secret = encrypt("pk.npz", "asdnkasndkasd")
+
+#print( decrypt(file_sk="sk.npz", secret=_secret) )
