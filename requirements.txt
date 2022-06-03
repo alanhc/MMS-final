@@ -2,3 +2,5 @@ sympy
 numpy
 docopt
 qrcode
+opencv_python_headless
+pycryptodome
