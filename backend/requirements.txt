@@ -1,0 +1,22 @@
+python-jose[cryptography]
+passlib[bcrypt]
+uvicorn
+aiofiles
+fastapi
+python-multipart
+bcrypt
+pyblake2
+pynacl
+base58check
+requests
+pymongo # mongodb
+dnspython # mongodb srv URI
+python-dotenv
+datetime
+pytest
+Pillow
+opencv-python
+numpy
+sympy
+docopt
+cryptography
