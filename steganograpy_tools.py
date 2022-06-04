@@ -59,8 +59,11 @@ def decode(stego_img_src, seed, secret_img_size):
     return res_img
 
 # save file as png!
-# stego_img = encode("test_file/img1.jpg", "test_file/qrcode.png", 100)
-# cv2.imwrite("test_file/stego_img.png", stego_img)
+#stego_img = encode("test_file/img1.jpg", "test_file/qrcode.png", 100)
+#cv2.imwrite("test_file/stego_img.png", stego_img)
 
-# decode_img = decode("test_file/stego_img.png", 100, [210, 210])
-# cv2.imwrite("test_file/decode_img.png", decode_img)
+#decode_img = decode("test_file/stego_img.png", 100, [210, 210])
+#cv2.imwrite("test_file/decode_img.png", decode_img)
+
+if __name__ == '__main__':
+    pass
