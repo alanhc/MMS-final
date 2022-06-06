@@ -9,7 +9,7 @@ instance.interceptors.request.use((config) => {
     config.headers["Authorization"] = token ? `Bearer ${token}` : "";
   
     return config;
-  });
+});
 
 class SimpleFormData extends FormData {
     constructor(data) {
@@ -32,12 +32,6 @@ export const login = async (_address, _signature) => {
         signature: _signature,
     });
 
-    // const config = {
-    //     headers: {
-    //         "Content-Type": "application/x-www-form-urlencoded"
-    //     }
-    // };
-
     return await instance.post('/login', param).then((res) => {
         return res.data.access_token;
     });
@@ -52,5 +46,25 @@ export const renewToken = async () => {
 export const getCollectionByAddress = async (address) => {
     return await instance.get(`/collections/${address}`).then((res) => {
         return res.data.result;
+    });
+}
+
+export const activateTicket = async(contract, tokenId) => {
+    // return await instance.get(`/activate_ticket/${contract}/${tokenId}`, {responseType: 'blob'}).then((res) => {
+    //     return [res.data, URL.createObjectURL(res.data)]; 
+    // });
+    return await instance.get(`/activate_ticket/${contract}/${tokenId}`).then((res) => {
+        return res.data; 
+    });
+}
+
+export const getQRcode = async(contract, tokenId, imgData) => {
+    const param = new SimpleFormData({
+        file: imgData
+    });
+
+
+    return await instance.post(`/qrcode/${contract}/${tokenId}`, param).then((res) => {
+        return res.data.file;
     });
 }

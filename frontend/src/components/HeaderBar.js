@@ -31,7 +31,7 @@ const HeaderBar = () => {
             </>
     
           ) : (
-            <Button color="inherit" onClick={ onClickConnect }>Sync</Button>
+            <Button variant="outlined" color="inherit" onClick={ onClickConnect }>Sync</Button>
           )}
         </Toolbar>
       </AppBar>
