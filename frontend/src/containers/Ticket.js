@@ -14,6 +14,7 @@ const Ticket = () => {
     const [collections, setCollections] = useState({});
     const [ticket, setTicket] = useState({});
     const [imgData, setImgData] = useState({});
+    const [blob, setBlob] = useState({});
     // const [buttonType, setButtonType] = useState("Activate Ticket");
 
     
@@ -28,6 +29,11 @@ const Ticket = () => {
 
         var enc = new TextEncoder();
         console.log(enc.encode(res));
+
+        // console.log("Fetching QR");
+        // console.log(imgData);
+        // const res2 = await getQRcode(ticket.contract, ticket.tokenId, res);
+        // console.log("Got QR");
 
         // console.log(typeof(tmp));
         // console.log(res[0].arrayBuffer());
@@ -45,7 +51,8 @@ const Ticket = () => {
         // console.log("arraybuffer: ", arrayBuffer);
 
         // localStorage.setItem("imgData", arrayBuffer);
-        localStorage.setItem("imgData", enc.encode(res));
+        localStorage.setItem("imgData", res);
+        await setBlob(res);
 
         // var dataImage = localStorage.getItem("imgData");
         let resImg = document.getElementById("test");
@@ -63,8 +70,8 @@ const Ticket = () => {
         console.log(imgData)
 
         console.log("Fetching QR");
-        console.log(imgData);
-        const res = await getQRcode(ticket.contract, ticket.tokenId, imgData);
+        console.log(blob);
+        const res = await getQRcode(ticket.contract, ticket.tokenId, blob);
         console.log("Got QR");
 
         console.log(res);

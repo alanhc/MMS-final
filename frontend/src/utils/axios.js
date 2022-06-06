@@ -53,7 +53,7 @@ export const activateTicket = async(contract, tokenId) => {
     // return await instance.get(`/activate_ticket/${contract}/${tokenId}`, {responseType: 'blob'}).then((res) => {
     //     return [res.data, URL.createObjectURL(res.data)]; 
     // });
-    return await instance.get(`/activate_ticket/${contract}/${tokenId}`).then((res) => {
+    return await instance.get(`/activate_ticket/${contract}/${tokenId}`, {responseType: 'blob'}).then((res) => {
         return res.data; 
     });
 }
@@ -63,8 +63,14 @@ export const getQRcode = async(contract, tokenId, imgData) => {
         file: imgData
     });
 
+    const headers = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+    }
 
-    return await instance.post(`/qrcode/${contract}/${tokenId}`, param).then((res) => {
+
+    return await instance.post(`/qrcode/${contract}/${tokenId}`, param, headers).then((res) => {
         return res.data.file;
     });
 }
