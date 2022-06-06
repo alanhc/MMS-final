@@ -1,13 +1,14 @@
-import {
-  AppBar, Box, Toolbar, Typography, Button, IconButton
-} from '@mui/material'
+import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material'
+import { useContext } from 'react';
 import useWallet from '../hooks/useWallet'
+import { AuthContext } from '../utils/context';
 
 const HeaderBar = () => {
   const { connectWallet } = useWallet();
   const onClickConnect = () => {
     connectWallet();
   }
+  const { authState, authDispatcher } = useContext(AuthContext);
 
 	return (
     <Box sx={{ flexGrow: 1 }}>
@@ -24,7 +25,14 @@ const HeaderBar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             *
           </Typography>
-          <Button color="inherit" onClick={ onClickConnect }>Connect</Button>
+          { authState?.isLoggedIn ? (
+            <>
+              "Hello"
+            </>
+    
+          ) : (
+            <Button color="inherit" onClick={ onClickConnect }>Sync</Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

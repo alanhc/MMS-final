@@ -1,14 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import HeaderBar from './components/HeaderBar.js'
+import { useEffect, useReducer, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './containers/Home';
+import Ticket from './containers/Ticket';
 
 const App = () => {
   return (
-    <main>
-      {/* "hello" */}
-      <HeaderBar />
-    </main>
-    // <h1>Hello World</h1>
+    // <AuthContext.Provider value={{ authState, authDispatcher }}>
+    //   <HeaderBar />
+    //   <Collection />
+      <Router>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/ticket/:id" element={<Ticket />} />
+      </Routes>
+      </Router>
+    // </AuthContext.Provider>
   )
 }
 
