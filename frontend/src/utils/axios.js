@@ -3,7 +3,6 @@ import { SERVER_URL } from "./config"
 import storage from "./storage"
 
 const instance = axios.create({ baseURL: SERVER_URL});
-const qr_instance = axios.create({ baseURL: "http://api.qrserver.com/"})
 
 instance.interceptors.request.use((config) => {
     const token = storage.authToken;
@@ -66,12 +65,12 @@ export const getQRcode = async(contract, tokenId, imgData) => {
     });
 }
 
-export const readQRcode = async(imgData) => {
+export const verifyQRcode = async(contract, tokenId, _file) => {
     const param = new SimpleFormData({
-        file: imgData
+        file: _file
     });
 
-    return await instance.post(`/v1/read-qr-code/`, param).then((res) => {
+    return await instance.post(`/verify/${contract}/${tokenId}`, param).then((res) => {
         return res.data;
     });
 }
