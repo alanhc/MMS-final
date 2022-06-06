@@ -71,6 +71,6 @@ export const verifyQRcode = async(contract, tokenId, _file) => {
     });
 
     return await instance.post(`/verify/${contract}/${tokenId}`, param).then((res) => {
-        return res.data;
+        return res;
     });
 }

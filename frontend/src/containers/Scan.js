@@ -14,28 +14,13 @@ const Scan = () => {
     const [data, setData] = useState('No result');
     const [collections, setCollections] = useState({});
     const [ticket, setTicket] = useState({});
+    const [result, setResult] = useState("");
 
     const onClickUse = async () => {
-        console.log("VERIFY");
-        console.log(typeof data);
-
-        const toBytes = (string) => {
-            const buffer = Buffer.from(string, 'utf8');
-            const result = Array(buffer.length);
-            for (var i = 0; i < buffer.length; i++) {
-                result[i] = buffer[i];
-            }
-            return result;
-        };
-
-        const bytes = toBytes(data);
-        console.log(typeof bytes);
-        console.log(bytes);
-
-
         console.log("verifying")
         const res = await verifyQRcode(ticket.contract, ticket.tokenId, data);
-        console.log(res);
+
+        setResult(res.data.status);
     }
 
     useEffect(() => {
@@ -52,7 +37,6 @@ const Scan = () => {
             }
         }
 
-
         fetchCollections();
     })
 
@@ -63,7 +47,7 @@ const Scan = () => {
             onResult={(result, error) => {
                 if (!!result) {
                     setData(result?.text);
-                    // verifyData();
+                    setResult("Scanned.")
                 }
     
                 if (!!error) {
@@ -72,7 +56,11 @@ const Scan = () => {
             }}
             style={{ height:'10px' }}
             />
-            <p>{data}</p>
+            <Grid container spacing={2} justifyContent="center">
+                <Grid item xs={8} justifyContent="center">
+                    <p align="center"> {result} </p>
+                </Grid>
+            </Grid>
             <Grid container spacing={2} justifyContent="center">
                 <Grid item xs={8} justifyContent="center">
                     <Button id="activateBtn" variant="outlined" color="inherit" onClick={ onClickUse }
@@ -82,7 +70,6 @@ const Scan = () => {
                 </Grid>
             </Grid>
             
-        {/* <QRScan></QRScan> */}
       </Box>
     );
 }

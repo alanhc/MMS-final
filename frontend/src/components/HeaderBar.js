@@ -27,7 +27,7 @@ const HeaderBar = () => {
           </Typography>
           { authState?.isLoggedIn ? (
             <>
-              "Hello"
+              <Button variant="outlined" color="inherit">Synced</Button>
             </>
     
           ) : (

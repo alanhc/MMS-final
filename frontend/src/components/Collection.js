@@ -36,7 +36,7 @@ const Collection = () => {
             { authState?.isLoggedIn ? (
             <Grid container spacing={2} justifyContent="center">
                 { Object.keys(collections).map(key => (
-                    <Item key={key}><Link to={`/ticket/${collections[key].tokenId}`}>{collections[key].tokenId}</Link></Item>
+                    <Item key={key}><Link to={`/ticket/${collections[key].tokenId}`}>NFT TICKET #{collections[key].tokenId}</Link></Item>
                 ))}
             </Grid>
             ) : (
