@@ -3,6 +3,7 @@ import { SERVER_URL } from "./config"
 import storage from "./storage"
 
 const instance = axios.create({ baseURL: SERVER_URL});
+const qr_instance = axios.create({ baseURL: "http://api.qrserver.com/"})
 
 instance.interceptors.request.use((config) => {
     const token = storage.authToken;
@@ -50,9 +51,6 @@ export const getCollectionByAddress = async (address) => {
 }
 
 export const activateTicket = async(contract, tokenId) => {
-    // return await instance.get(`/activate_ticket/${contract}/${tokenId}`, {responseType: 'blob'}).then((res) => {
-    //     return [res.data, URL.createObjectURL(res.data)]; 
-    // });
     return await instance.get(`/activate_ticket/${contract}/${tokenId}`, {responseType: 'blob'}).then((res) => {
         return res.data; 
     });
@@ -63,14 +61,17 @@ export const getQRcode = async(contract, tokenId, imgData) => {
         file: imgData
     });
 
-    const headers = {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-    }
+    return await instance.post(`/qrcode/${contract}/${tokenId}`, param, {responseType: 'blob'}).then((res) => {
+        return res.data;
+    });
+}
 
+export const readQRcode = async(imgData) => {
+    const param = new SimpleFormData({
+        file: imgData
+    });
 
-    return await instance.post(`/qrcode/${contract}/${tokenId}`, param, headers).then((res) => {
-        return res.data.file;
+    return await instance.post(`/v1/read-qr-code/`, param).then((res) => {
+        return res.data;
     });
 }

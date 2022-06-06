@@ -2,7 +2,6 @@ import { useEffect, useReducer, useState } from 'react';
 import jwt from "jsonwebtoken";
 import HeaderBar from '../components/HeaderBar.js'
 import Collection from '../components/Collection';
-import Ticket from '../containers/Ticket';
 import { renewToken } from '../utils/axios';
 import storage, { LS_AUTH_TOKEN } from '../utils/storage';
 import { authStatusReducer, AuthDispatcherAction } from '../utils/AuthReducer';

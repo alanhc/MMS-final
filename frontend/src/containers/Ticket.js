@@ -13,50 +13,19 @@ const Ticket = () => {
     const { authState, authDispatcher } = useContext(AuthContext);
     const [collections, setCollections] = useState({});
     const [ticket, setTicket] = useState({});
-    const [imgData, setImgData] = useState({});
     const [blob, setBlob] = useState({});
-    // const [buttonType, setButtonType] = useState("Activate Ticket");
 
     
     const onClickActivate = async () => {
         console.log("Fetching image");
         const res = await activateTicket(ticket.contract, ticket.tokenId);
 
-        // setImgData(res);
-
-        console.log(res);
-        console.log(typeof(res));
-
-        var enc = new TextEncoder();
-        console.log(enc.encode(res));
-
-        // console.log("Fetching QR");
-        // console.log(imgData);
-        // const res2 = await getQRcode(ticket.contract, ticket.tokenId, res);
-        // console.log("Got QR");
-
-        // console.log(typeof(tmp));
-        // console.log(res[0].arrayBuffer());
-
-        // setImgData(res[0]);
-        // var arrayBuffer;
-        // var fileReader = new FileReader();
-        // fileReader.onload = await function(event) {
-        //     arrayBuffer = event.target.result;
-        // };
-        // fileReader.readAsArrayBuffer(res[0]);
-
-        // const arrayBuffer = await new Response(res[0]).arrayBuffer(); 
-
-        // console.log("arraybuffer: ", arrayBuffer);
-
-        // localStorage.setItem("imgData", arrayBuffer);
-        localStorage.setItem("imgData", res);
+        localStorage.setItem("imgData", URL.createObjectURL(res));
+        console.log(localStorage.getItem("imgData"))
         await setBlob(res);
 
-        // var dataImage = localStorage.getItem("imgData");
-        let resImg = document.getElementById("test");
-        resImg.src = res;    
+        let resImg = document.getElementById("img");
+        resImg.src = URL.createObjectURL(res);    
 
         let activateBtn = document.getElementById("activateBtn");
         let useBtn = document.getElementById("useBtn");
@@ -66,15 +35,12 @@ const Ticket = () => {
     }    
 
     const onClickUse = async () => {
-        const imgData = localStorage.getItem("imgData");
-        console.log(imgData)
-
         console.log("Fetching QR");
-        console.log(blob);
         const res = await getQRcode(ticket.contract, ticket.tokenId, blob);
         console.log("Got QR");
 
-        console.log(res);
+        let resImg = document.getElementById("qrcode");
+        resImg.src = URL.createObjectURL(res);    
     }
 
     useEffect(() => {
@@ -90,11 +56,6 @@ const Ticket = () => {
                     }
                 }
             }
-
-            // console.log(ticket);
-            // console.log(storage.authToken);
-            
-
         }
 
         fetchCollections();
@@ -119,7 +80,7 @@ const Ticket = () => {
                         </Button>
                     </Grid>
                     <Grid item xs={8}>
-                        <img id="test" style={{ display: "block", marginLeft: "auto", marginRight: "auto" }} />
+                        <img id="qrcode" style={{ display: "block", marginLeft: "auto", marginRight: "auto" }} />
                     </Grid>
                 </Grid>
             </Box>
