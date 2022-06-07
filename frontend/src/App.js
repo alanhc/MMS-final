@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './containers/Home';
 import Ticket from './containers/Ticket';
 import Scan from './containers/Scan';
@@ -7,11 +7,11 @@ import Scan from './containers/Scan';
 const App = () => {
   return (
       <Router>
-      <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/ticket/:id" element={<Ticket />} />
-        <Route path="/scan/:id" element={<Scan />} />
-      </Routes>
+        <Routes>
+          <Route exact path="/*" element={<Home/>} />
+          <Route exact path="/ticket/:id" element={<Ticket />} />
+          <Route exact path="/scan/:id" element={<Scan />} />
+        </Routes>
       </Router>
   )
 }
