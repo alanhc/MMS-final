@@ -6,7 +6,7 @@ import Scan from './containers/Scan';
 
 const App = () => {
   return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/ticket/:id" element={<Ticket />} />
